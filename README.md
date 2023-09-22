@@ -24,7 +24,7 @@ git clone https://github.com/XuyangGuo/CtrlHair.git
 cd CtrlHair
 ```
 
-The code requires python 3.6.
+The code requires python 3.8.
 
 We recommend using Anaconda to regulate packages.
 

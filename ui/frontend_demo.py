@@ -21,13 +21,13 @@ ctrl_hair_parser_options(parser)
 
 args = parser.parse_args()
 os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
-from ui.backend import Backend
+from backend import Backend
 from util.imutil import read_rgb, write_rgb
 
-from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QApplication, QLabel, QGridLayout, \
+from PyQt6.QtWidgets import QWidget, QPushButton, QVBoxLayout, QApplication, QLabel, QGridLayout, \
     QSlider, QFileDialog
-from PyQt5.QtGui import QPixmap, QFont
-from PyQt5.QtCore import Qt
+from PyQt6.QtGui import QPixmap, QFont
+from PyQt6 import QtCore
 
 
 class Example(QWidget):
@@ -63,7 +63,8 @@ class Example(QWidget):
         # for idx in range(len(self.labels)):
         #     self.grid1.addWidget(QLabel(tags[idx]), 0, idx)
         for idx in range(len(self.labels)):
-            self.grid1.addWidget(self.labels[idx], 1, idx, alignment=Qt.AlignTop)
+            self.grid1.addWidget(self.labels[idx], 1, idx, alignment=QtCore.Qt.AlignmentFlag.AlignTop)
+            self.grid1.addWidget(self.labels[idx], 1, idx)
             self.labels[idx].setFixedSize(256, 256)
 
         self.btn_open_target = QPushButton('Target Image', self)
@@ -74,7 +75,8 @@ class Example(QWidget):
         self.btn_open_input.clicked[bool].connect(self.evt_open_input)
         self.grid1.addWidget(self.btn_open_input, 0, 1)
 
-        self.grid1.addWidget(QLabel('Hair Shape'), 0, 2, alignment=Qt.AlignCenter)
+        self.grid1.addWidget(QLabel('Hair Shape'), 0, 2, alignment=QtCore.Qt.AlignmentFlag.AlignCenter)
+        #self.grid1.addWidget(QLabel('Hair Shape'), 0, 2)
 
         self.btn_output = QPushButton('Output', self)
         self.btn_output.clicked[bool].connect(self.evt_output)
@@ -115,9 +117,9 @@ class Example(QWidget):
                 if col == 3 and row == 2:
                     continue
                 num = col_num * row + col
-                sld = QSlider(Qt.Horizontal, self)
-                sld.setMinimum(-self.maximum_value * 100)
-                sld.setMaximum(self.maximum_value * 100)
+                sld = QSlider(QtCore.Qt.Orientation.Horizontal, self)
+                sld.setMinimum(int(-self.maximum_value * 100))
+                sld.setMaximum(int(self.maximum_value * 100))
                 sld.sliderMoved[int].connect(self.evt_change_value)
                 self.sld2val[sld] = num
                 self.val2sld[num] = sld
@@ -223,7 +225,7 @@ class Example(QWidget):
 
         # curliness
         idx += len(self.label_shape)
-        self.val2sld[idx].setValue(self.backend.get_curliness_be2fe() * 100)
+        self.val2sld[idx].setValue(int(self.backend.get_curliness_be2fe() * 100))
         #  texture
         idx += len(self.label_curliness)
         app_val = self.backend.get_texture_be2fe()
@@ -262,7 +264,7 @@ class Example(QWidget):
 def main():
     app = QApplication(sys.argv)
     ex = Example()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 if __name__ == '__main__':

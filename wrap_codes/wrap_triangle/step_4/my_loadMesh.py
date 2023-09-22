@@ -26,6 +26,6 @@ def load_mesh(meshName):
                 # index starting from 1
                 faces.append([int(item) for item in tmp[1:]])
     return np.array(vertex).astype(np.float32), \
-            np.array(faces).astype(np.int), \
+            np.array(faces).astype(np.int_), \
             np.array(texture_coord).astype(np.float32)
 

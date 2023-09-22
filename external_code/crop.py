@@ -57,7 +57,7 @@ def recreate_aligned_images(img, lm_68, output_size=1024, transform_size=4096, e
     shrink = int(np.floor(qsize / output_size * 0.5))
     if shrink > 1:
         rsize = (int(np.rint(float(img.size[0]) / shrink)), int(np.rint(float(img.size[1]) / shrink)))
-        img = img.resize(rsize, PIL.Image.ANTIALIAS)
+        img = img.resize(rsize, PIL.Image.Resampling.LANCZOS)
         quad /= shrink
         qsize /= shrink
         trans_points = trans_points / shrink
@@ -96,7 +96,7 @@ def recreate_aligned_images(img, lm_68, output_size=1024, transform_size=4096, e
     trans_data = (quad + 0.5)
     img = img.transform((transform_size, transform_size), PIL.Image.QUAD, trans_data.flatten(), PIL.Image.BILINEAR)
     if output_size < transform_size:
-        img = img.resize((output_size, output_size), PIL.Image.ANTIALIAS)
+        img = img.resize((output_size, output_size), PIL.Image.Resampling.LANCZOS)
 
     projective_matrix = cv2.getPerspectiveTransform(trans_data.astype('float32'),
                                                     np.array([[0, 0], [0, 1], [1, 1], [1, 0]], dtype='float32'))

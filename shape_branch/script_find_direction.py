@@ -13,7 +13,7 @@ sys.path.append('.')
 import os
 import tqdm
 
-from ui.backend import Backend
+from backend import Backend
 from util.canvas_grid import Canvas
 import numpy as np
 

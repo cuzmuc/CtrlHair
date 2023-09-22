@@ -16,7 +16,7 @@ import scipy.stats as st
 class DistTranslation:
     def __init__(self):
         hair_root = 'dataset_info_ctrlhair'
-        with open(os.path.join(hair_root, 'hsv_stat_dict_ordered.pkl'), 'rb') as f:
+        with open(os.path.join(hair_root, 'hsv_stat_dict.pkl'), 'rb') as f:
             self.cols_hsv = pkl.load(f)
 
     def gaussian_to_val(self, dim, val):

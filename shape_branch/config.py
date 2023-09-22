@@ -15,7 +15,7 @@ from global_value_utils import GLOBAL_DATA_ROOT, DEFAULT_CONFIG_SHAPE_BRANCH
 
 configs = [
     addict.Dict({
-        "experiment_name": "054__succeed__049__gan_fake_0.5_from_noise",
+        "experiment_name": "054__succeed__049__gan_fake_0.5_from_noise",        
         'hair_dim': 16,
         'pos_encoding_order': 10,
         'lambda_hair': 100,

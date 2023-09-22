@@ -95,7 +95,7 @@ def wrap_by_uv(UV, triangle_path, wrap_name, landmark_source, landmark_target, w
     (H, W) = wrap_img.shape[:2]
 
     # get_warpedImage
-    wrap_img = wrap_img.astype(np.float)
+    wrap_img = wrap_img.astype(np.float32)
     out_img = textureSampling(wrap_img, UV)
     out_img = np.reshape(out_img, (W, H, -1))
 

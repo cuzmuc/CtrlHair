@@ -15,7 +15,7 @@ from global_value_utils import GLOBAL_DATA_ROOT, DEFAULT_CONFIG_COLOR_TEXTURE_BR
 
 configs = [
     addict.Dict({
-        "experiment_name": "045__color_texture_final",
+        "experiment_name": "045__same_043__trainset9402",
         'lambda_rgb': 0.01,
         'lambda_pca_std': 0.01,
         'noise_dim': 8,
