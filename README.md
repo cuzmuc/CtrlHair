@@ -4,6 +4,11 @@ Controllable Hair Editing (ECCV 2022)
 # Install
 Need python3.8 and GPU runtime environment
 
+Clone this repo 
+
+- git clone https://github.com/cuzmuc/CtrlHair.git
+- cd CtrlHair
+
 Install python packages
 
 - bash script/install.sh
