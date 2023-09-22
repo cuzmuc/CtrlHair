@@ -15,7 +15,7 @@ Install python packages
 
 Download pretrained model and parameters
 
-- bash script/download.sh
+- python script/download.py
 
 # Run API server
 
