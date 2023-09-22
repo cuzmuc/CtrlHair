@@ -58,8 +58,8 @@ def getimage(raw_image):
     return np.array(img)
 
 @app.route("/")
-def hello_world():
-    return "<p>Hello, HairSwap API!</p>"
+def index():
+    return "Hello, HairSwap API!"
     
 @app.route('/api/docs')
 def get_docs():
@@ -113,5 +113,5 @@ def swaphair():
     return make_response(jsonify(response), 200)
 
 if __name__ == '__main__':
-    #app.run()
-    app.run(host='0.0.0.0',port=5555,debug=False)
+    app.run()
+    #app.run(host='0.0.0.0',port=5555,debug=False)
