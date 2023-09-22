@@ -30,7 +30,7 @@ can see PORT and IP here -> (https://github.com/cuzmuc/CtrlHair/blob/b19ec1c7bcb
   or
 
   ```
-    curl --location --request POST 'http://0.0.0.0:5000/image-captioning' \
+    curl --location --request POST 'http://0.0.0.0:5555/swaphair' \
     --header 'Content-Type: application/json' \
     --data-raw '{ \
       "srcimg": "data:image/png;base64,/9j/4AAQSkZJRgABAQEAYABgAAD....", \
