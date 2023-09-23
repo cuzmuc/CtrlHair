@@ -11,6 +11,7 @@ from util.imutil import read_rgb, write_rgb
 import io
 import numpy as np
 from base64 import b64encode, b64decode
+from flask_ngrok import run_with_ngrok
 
 
 IMAGE_PROCESS_OK = 100
@@ -51,6 +52,7 @@ write_rgb('temp.png', output_img)
 print(f'Image process takes {datetime.now() - start_time}')
 
 app = Flask(__name__)
+run_with_ngrok(app)
 
 def getimage(raw_image):    
     decoded_string = io.BytesIO(b64decode(raw_image))
@@ -114,4 +116,4 @@ def swaphair():
 
 if __name__ == '__main__':
     #app.run()
-    app.run(host='0.0.0.0',port=5555,debug=False)
+    app.run(host='0.0.0.0',port=8080,debug=False)
