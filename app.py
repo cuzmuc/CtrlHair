@@ -68,20 +68,7 @@ def get_docs():
     print('sending docs')
     return render_template('swapapi.html')
 
-@app.route('/swaphair', methods=['POST'])
-def swaphair():
-     # POST
-    # Read image data
-    img_data = request.json
-    if 'srcimg' not in img_data or 'dstimg' not in img_data:
-        response = {
-            'error': INVALID_REQUEST_ERR
-        }
-        return make_response(jsonify(response), 400)
-    
-    input_image = getimage(img_data['srcimg'])    
-    target_image = getimage(img_data['dstimg'])
-
+def processimg(input_image, target_image):
     """
     If the image need crop
     """
@@ -102,6 +89,48 @@ def swaphair():
         output_img = np.stack([output_img] * 3, axis=2)
     elif output_img.shape[2] == 1:
         output_img = np.tile(output_img, [1, 1, 3])
+    
+    return output_img
+    
+@app.route('/swaphair', methods=['POST'])
+def swaphair():
+     # POST
+    # Read image data
+    img_data = request.json
+    if 'srcimg' not in img_data or 'dstimg' not in img_data:
+        response = {
+            'error': INVALID_REQUEST_ERR
+        }
+        return make_response(jsonify(response), 400)
+    
+    input_image = getimage(img_data['srcimg'])    
+    target_image = getimage(img_data['dstimg'])
+
+    output_img = processimg(input_image, target_image)
+
+    resbgr = cv2.cvtColor(output_img, cv2.COLOR_RGB2BGR)
+
+    _, buffer = cv2.imencode(".png", resbgr)
+    imgstr = b64encode(buffer).decode('utf-8')
+
+    response = {
+        'resimg': imgstr
+    }
+
+    return make_response(jsonify(response), 200)
+    
+@app.route('/swaphairv2', methods=['POST'])
+def swaphairv2():
+     # POST
+    # Read image data
+    file1 = request.files['srcimg']
+    file2 = request.files['dstimg']
+
+    # Read the image via file.stream
+    input_image = np.array(Image.open(file1.stream).convert('RGB'))
+    target_image = np.array(Image.open(file2.stream).convert('RGB'))
+
+    output_img = processimg(input_image, target_image)
 
     resbgr = cv2.cvtColor(output_img, cv2.COLOR_RGB2BGR)
 
